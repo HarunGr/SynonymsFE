@@ -1,0 +1,34 @@
+<div class="text-center mt-5">
+  <div class="mb-3">
+    <input
+      class="form-control d-inline-block w-50"
+      placeholder="Enter word"
+      [value]="word"
+      (input)="word = $event.target.value"
+    />
+    <button class="btn btn-primary ms-2" (click)="search()">Search</button>
+  </div>
+  <div class="mb-4">
+    <input
+      class="form-control d-inline-block w-50"
+      placeholder="Enter a synonym"
+      [value]="newSynonym"
+      (input)="newSynonym = $event.target.value"
+    />
+    <button class="btn btn-success ms-2" (click)="add()">Add</button>
+  </div>
+  <!-- central word box -->
+  <div class="d-flex justify-content-center mt-4">
+    <span class="synonym central-word p-2">
+      {{ word }}
+    </span>
+  </div>
+  <!-- synonyms grid, rows of up to 5 -->
+  <div class="d-flex flex-wrap justify-content-center mt-3 synonym-grid-container">
+    <ng-container *ngFor="let syn of synonyms">
+      <span class="synonym p-2">
+        {{ syn }}
+      </span>
+    </ng-container>
+  </div>
+</div>

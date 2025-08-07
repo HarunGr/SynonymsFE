@@ -1,0 +1,26 @@
+.synonym {
+  display: inline-block;
+  background: rgba(255,255,255,0.8);
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  margin: 0.25rem;
+}
+
+.central-word {
+  background-color: #000;
+  color: #fff;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.synonym-grid {
+  display: grid;
+  grid-template-columns: repeat(5, max-content);
+  grid-gap: 0.5rem;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
