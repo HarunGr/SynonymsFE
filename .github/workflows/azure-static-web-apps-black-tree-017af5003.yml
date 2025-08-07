@@ -11,50 +11,34 @@ on:
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Build and Deploy Job
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-        with:
-          submodules: true
-          lfs: false
 
       - name: Setup Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: '20.x'        # Angular needs ≥20.19
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build Angular app
-        run: npm run build --if-present
+        run: npm run build -- --configuration production
+        # this produces dist/synonyms-app/browser/index.html
 
       - name: Deploy to Azure Static Web Apps
-        id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_TREE_017AF5003 }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          action: upload
-          skip_app_build: true               # ⬅️ tell Oryx not to rebuild your app :contentReference[oaicite:0]{index=0}
-          skip_api_build: true               # ⬅️ if you have no Azure Functions to build :contentReference[oaicite:1]{index=1}
-          app_location: "/"                  # still point at your repo root
-          output_location: "dist/synonyms-app/browser"         # the folder you just built
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token:                            ${{ secrets.GITHUB_TOKEN }}
+          action:                                upload
+          app_location:                          "/"                             # your source root
+          output_location:                       "dist/synonyms-app/browser"     # where index.html actually is
+          skip_app_build:                        true                            # ⬅️ don’t let Oryx rebuild :contentReference[oaicite:0]{index=0}
+          skip_api_build:                        true                            # ⬅️ only if you have no Azure Functions :contentReference[oaicite:1]{index=1}
 
-  close_pull_request_job:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-latest
-    name: Close Pull Request Job
-    steps:
-      - name: Close Pull Request
-        id: closepullrequest
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_TREE_017AF5003 }}
-          action: "close"
 
 
 
