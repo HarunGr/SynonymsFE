@@ -34,10 +34,11 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_TREE_017AF5003 }}
           repo_token:                            ${{ secrets.GITHUB_TOKEN }}
           action:                                upload
-          app_location:                          "/"                             # your source root
-          output_location:                       "dist/synonyms-app/browser"     # where index.html actually is
-          #skip_app_build:                        true                            # ⬅️ don’t let Oryx rebuild :contentReference[oaicite:0]{index=0}
+          app_location:                          "dist/synonyms-app/browser"                             # your source root
+          output_location:                       ""     # where index.html actually is
+          skip_app_build:                        true                            # ⬅️ don’t let Oryx rebuild :contentReference[oaicite:0]{index=0}
           skip_api_build:                        true                            # ⬅️ only if you have no Azure Functions :contentReference[oaicite:1]{index=1}
+
 
 
 
