@@ -22,7 +22,7 @@ jobs:
           lfs: false
 
       - name: Setup Node.js 20.x
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20.x'
 
@@ -55,3 +55,4 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_TREE_017AF5003 }}
           action: "close"
+
